@@ -31,6 +31,10 @@ public class Editora {
         this.email = email;
     }
 
+    public ArrayList<Livro> getLivros() {
+        return livros;
+    }
+
     public String toString(){
         System.out.println("ID: " + id);
         System.out.println("Nome: " + nome);
@@ -41,5 +45,7 @@ public class Editora {
         }
         return "";
     }
+
+
 
 }

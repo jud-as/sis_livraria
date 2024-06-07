@@ -12,6 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
         arrayEditoras = new ArrayList<Editora>();
+        estoqueLivros = new ArrayList<Livro>();
         cadastrarEditora();
         operacoes();
     }
@@ -30,13 +31,13 @@ public class Main {
         int opc = input.nextInt();
         switch (opc){
                 case 1:
-                //adicionarLivros();
+                adicionarLivros();
                 break;
             case 2:
-                //removerLivros();
+                removerLivros();
                 break;
             case 3:
-                //consultarEstoque();
+                consultarEstoque();
                 break;
             case 4:
                 listarEditoras();
@@ -69,12 +70,81 @@ public class Main {
         arrayEditoras.add(editoraB);
     }
 
+    public static void adicionarLivros() {
+        System.out.println("ID do livro: ");
+        int opc = input.nextInt();
+        Livro livro = null;
+        Livro livroAux;
+        for (Editora e : arrayEditoras) {
+            for (Livro l : e.livros) {
+                if (l.getId() == opc) {
+                    livro = l;
+                }
+            }
+        }
+        if (livro != null) {
+            System.out.println("Quantidade: ");
+            int quantidade = input.nextInt();
+            livroAux = livro;
+            livroAux.setQuantidade(quantidade);
+            estoqueLivros.add(livroAux);
+            System.out.println("Livro adicionado com sucesso.");
+        }else{
+            System.out.println("Livro não encontrado.");
+        }
+        operacoes();
+    }
 
+    public static void removerLivros() {
+        if(!estoqueLivros.isEmpty()) {
+            System.out.println("ID do livro: ");
+            int opc = input.nextInt();
+            Livro livro = buscarLivro(opc, estoqueLivros);
+            if (livro != null) {
+                System.out.println("Quantidade: ");
+                int quantidade = input.nextInt();
+                if (quantidade <= livro.getQuantidade()) {
+                    livro.setQuantidade(livro.getQuantidade() - quantidade);
+                    System.out.println("Livro removido com sucesso.");
+                } else {
+                    System.out.println("Quantidade indisponível.");
+                }
+            }
+        }
+        operacoes();
+    }
+
+    public static void consultarEstoque() {
+        if (!estoqueLivros.isEmpty()) {
+            for (Livro l : estoqueLivros) {
+                System.out.println(l);
+            }
+        }else{
+            System.out.println("Estoque vazio. Adicione livros.");
+        }
+        operacoes();
+    }
+
+    public static Livro buscarLivro(int id, ArrayList<Livro> listaLivros) {
+        Livro livro = null;
+        if (!listaLivros.isEmpty()) {
+            for (Livro l : listaLivros) {
+                if (l.getId() == id) {
+                    livro = l;
+                }
+            }
+        }else{
+            System.out.println("Estoque vazio. Adicione livros.");
+        }
+
+        return livro;
+    }
 
     public static void listarEditoras() {
         System.out.println("Editoras: ");
         for (Editora e : arrayEditoras) {
             System.out.println(e);
         }
+        operacoes();
     }
 }

@@ -60,6 +60,10 @@ public class Livro {
         this.quantidade = quantidade;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String toString() {
         System.out.println("ID: " + id);
         System.out.println("Nome: " + nome);
@@ -69,4 +73,6 @@ public class Livro {
         System.out.println("Quantidade: " + quantidade);
         return "";
     }
+
+
 }
